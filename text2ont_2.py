@@ -1,29 +1,31 @@
 import requests, json, nltk
 
-r_post = requests.post('https://vision.staging.mantic.fr/auth/login', json={"email": "inno@mantic.fr", "password": "inno"})
-token = json.loads(r_post.text)['data']['token']
-r_get = requests.get('https://vision.staging.mantic.fr/graph/get_metrics', headers={'Authorization': str(token)})
-print(r_get.status_code)
-r_text = r_get.text
-r_json = json.loads(r_text)
-metric_list = []
-for el in r_json :
-    metric_list.append([el['aggregations'],el['field']])
-#print(metric_list_json)
+#r_post = requests.post('https://vision.staging.mantic.fr/auth/login', json={"email": "inno@mantic.fr", "password": "inno"})
+#token = json.loads(r_post.text)['data']['token']
+#r_get = requests.get('https://vision.staging.mantic.fr/graph/get_metrics', headers={'Authorization': str(token)})
+#print(r_get.status_code)
+#r_text = r_get.text
+#r_json = json.loads(r_text)
+#metric_list = []
+#for el in r_json :
+#    metric_list.append([el['aggregations'],el['field']])
+##print(metric_list_json)
+#
+#
+#r_get = requests.get('https://vision.staging.mantic.fr/graph/get_filters_and_dimensions?metric=structure_level', headers={'Authorization': str(token)})
+#print(r_get.status_code)
+#r_text = r_get.text
+#r_json = json.loads(r_text)
+#dimension_list = []
+#for el in r_json['dimensions'] :
+#    dimension_list.append(el['field'])
+#filters_list = []
+#for el in r_json['filters'] :
+#    if 'values' in el:
+#        filters_list.append([el['field'],el['values']])
+#    else :
+#        filters_list.append([el['field']])
 
-r_get = requests.get('https://vision.staging.mantic.fr/graph/get_filters_and_dimensions?metric=structure_level', headers={'Authorization': str(token)})
-print(r_get.status_code)
-r_text = r_get.text
-r_json = json.loads(r_text)
-dimension_list = []
-for el in r_json['dimensions'] :
-    dimension_list.append(el['field'])
-filters_list = []
-for el in r_json['filters'] :
-    if 'values' in el:
-        filters_list.append([el['field'],el['values']])
-    else :
-        filters_list.append([el['field']])
 
 
 
@@ -462,7 +464,139 @@ translation = {
         'last_year': "l'an dernier",
         'last_month': 'le mois dernier',
         'last_quarter': 'le trimestre dernier',
-        'pick_date': 'choisir la date'
+        'pick_date': 'choisir la date',
+        "absence": "absences",
+     "absence_type": "natures d'absence",
+     "absence_nb_days": "nombre de jours d'absence",
+     "absence_nb_hours": "nombre d'heures d'absence",
+     "absence_end_date": "date de fin d'absence",
+     "absence_start_date": "date de début d'absence",
+     "absence_time_evolution": "temps, absences en cours",
+    "absence_cost":"coût d'absence",
+    "activity":"activités municipales",
+    "activity_name":"nom des activités",
+    "activity_type":"type d'activité",
+    "adress":"adresse",
+    "adress_end_date":"date de déménagement à l'adresse",
+    "adress_start_date":"date d'emménagement à l'adresse",
+    "agent":"agents",
+    "agent_birthday":"date de naissance des agents",
+    "agent_age":"âge des agents",
+    "agent_marital_status":"statut marital des agents",
+    "agent_nb_children":"nombre d'enfants à charge des agents",
+    "agent_sex":"sexe des agents",
+    "agent_time_evolution":"temps, agents employés",
+     "attendance": "présences hebdomadaires des agents",
+     "attendance_nb_hours_overtime": "heures supplémentaires hebdomadaires",
+     "attendance_nb_hours_worked": "nombre d'heures hebdomadaires",
+     "attendance_week_monday": "semaine de présence",
+     "engagement": "engagements",
+     "engagement_creation_date": "date du début de contrat",
+     "engagement_delivery_date": "date de livraison",
+     "engagement_duration": "durée démarrage - livraison",
+     "engagement_amount_full_tax": "montant des engagements TTC",
+     "engagement_amount_no_tax": "montant des engagements HT",
+     "engagement_time_evolution": "temps, engagements en cours",
+     "household": "foyers usagers",
+     "household_nb_children": "nombre d'enfants par foyer",
+     "household_quotient": "quotient familial",
+     "household_quotient_slice": "tranche de quotient familial",
+     "household_status": "type de foyer",
+     "household_time_evolution": "temps des foyers",
+     "invoice_household": "factures aux foyers usagers",
+     "invoice_household_amount": "montants des factures aux foyers",
+     "invoice_household_amount_paid": "montants payés des factures aux foyers",
+     "invoice_household_payment_date": "date de paiement des factures aux foyers",
+     "invoice_household_creation_date": "date d'émission des factures aux foyers",
+     "invoice_household_time_evolution": "temps, factures en cours",
+     "invoice_household_line": "détail facture",
+     "invoice_household_line_amount": "montant des lignes de factures aux foyers",
+     "invoice_household_line_amount_paid": "montant payé des lignes de factures aux foyers",
+     "invoice_professional": "factures aux sociétés",
+     "invoice_professional_amount_no_tax": "montant HT des factures",
+     "invoice_professional_amount_full_tax": "montant TTC des factures",
+     "invoice_professional_interests": "intérêts des factures aux sociétés (€)",
+     "invoice_professional_interests_pct": "intérêts des factures aux sociétés ( % )",
+     "invoice_professional_date": "date des factures",
+     "invoice_professional_reception_date": "date de reception des factures",
+     "invoice_professional_creation_date": "date d'enregistrement des factures",
+     "invoice_professional_validation_date": "date de service fait",
+     "invoice_professional_payment_date": "date de paiement des factures",
+     "invoice_professional_mandate_date": "date de mandatement des factures",
+     "invoice_professional_reception_mandate_duration": "durée reception - mandat",
+     "invoice_professional_reception_validation_duration": "durée reception - validation",
+     "invoice_professional_reception_payment_duration": "durée reception - paiement",
+     "invoice_professional_validation_mandate_duration": "durée validation - mandat",
+     "invoice_professional_validation_payment_duration": "durée validation - paiement",
+     "invoice_professional_time_evolution": "temps, factures en cours",
+    "job":"affectation agent",
+    "job_category":"catégorie hiérarchique",
+    "job_end_date":"date de fin du poste",
+    "job_start_date":"date de début du poste",
+    "job_work_load":"temps de travail",
+    "job_type":"statut agent",
+    "job_label":"type d'emploi",
+    "job_time_evolution":"temps, affectations en cours",
+     "job_duration": "durée du poste",
+     "organization": "tiers",
+     "organization_name": "nom des tiers",
+     "organization_type": "type de tiers",
+     "pay_period": "paie mensuelle",
+     "pay_period_amount_agent": "paie nette",
+     "pay_period_amount_employer": "charges patronales",
+     "pay_period_end_date": "fin de période de paie",
+     "pay_period_start_date": "début de période de paie",
+     "pay_period_extra_hours": "nombre d'heures supplémentaires",
+     "pay_period_extra_hours_cost": "coût des heures supplémentaires",
+     "pay_period_distance_to_work": "distance domicile - travail",
+     "pay_period_cost_replacement": "coût du remplacement",
+     "place": "lieu",
+     "place_name": "nom du lieu",
+     "person": "habitants",
+     "person_age": "âge des habitants",
+     "person_birthday": "date de naissance des habitants",
+     "person_sex": "sexe des habitants",
+     "quotient": "quotients familiaux",
+     "quotient_quotient_slice": "tranche de quotient familial",
+     "quotient_value": "quotient familial",
+     "quotient_start_date": "date d'effet du quotient",
+     "quotient_end_date": "date de fin du quotient",
+     "registration": "inscriptions",
+     "registration_end_date": "date de fin de l'inscription",
+     "registration_start_date": "date de début de l'inscription",
+     "registration_consumption": "consommations",
+     "consumption": "consommations",
+     "consumption_value": "valeur des consommations",
+     "consumption_date": "date des consommations",
+     "salary_detail": "détail paie agents",
+     "salary_detail_amount_agent": "détails du salaire net",
+     "salary_detail_amount_employer": "détails des charges patronales des salaires",
+     "salary_line": "détail paie agents",
+     "salary_line_code": "code rubrique de paie",
+     "salary_type": "type de paie des salaires",
+     "structure": "entités de travail",
+     "structure_level": "niveau hiérarchique de l'entité",
+     "structure_name": "nom de l'entité",
+     "market": "marché",
+     "market_nature": "nature du marché",
+     "market_procedure": "procédure du marché",
+     "market_price_type": "type de prix du marché",
+     "market_amount_no_tax": "montant HT du marché",
+     "market_amount_full_tax": "montant TTC du marché",
+     "market_notification_date": "date de notification du marché",
+     "market_publication_date": "date de publication du marché",
+     "market_duration": "durée du marché",
+     "market_cpv_code": "code CPV du marché",
+     "market_modification_amount_no_tax": "montant HT de l'amendement au marché",
+     "market_modification_publication_date": "date de la publication de l'amendement au marché",
+     "market_modification_signature_date": "date de la signature de l'amendement au marché",
+     "budget_line": "ligne budgétaire",
+     "budget_line_label": "nom ligne de budget",
+     "budget_line_reference": "code ligne de budget",
+     "budget_line_date": "Année budgétaire",
+     "budget_line_amount_prevision": "montant prévisionnel",
+     "budget_line_amount_actual": "montant réalisé",
+     "budget_line_type": "colonne du budget"
 }
 
 roles = {
@@ -496,16 +630,17 @@ for el in dimension_list :
 untranslated_filters =[]
 for el in filters_list :
     try :
-        filters_list_fr.append(translation[el])
+        filters_list_fr.append(translation[el[0]])
     except : 
         untranslated_filters.append(el)
-print(len(metric_list_fr + dimension_list_fr +filters_list_fr))
-print(len(translation))
+#print(len(metric_list_fr + dimension_list_fr +filters_list_fr))
+#print(len(translation))
+#print(dimension_list_fr)
 
 
 #print(untranslated_filters)
 
-entry = 'Je veux la somme des montant HT des factures en fonction de la date des factures'
+entry = "Je veux la moyenne de paie nette en fonction du nom du lieu ou la nature du marché est supérieure à 50 et le nom du lieu commence par un A"
 text_list = entry.split()
 stripped_text = []
 
@@ -513,6 +648,7 @@ key_words = []
 for el in metric_list_fr +dimension_list_fr + filters_list_fr + aggregation_list_fr:
     for token in nltk.word_tokenize(el) :
         key_words.append(token)
+        
     
 
 
@@ -560,55 +696,88 @@ for filters in filters_list_fr :
 aggregation = ''
 dimension = ''
 metric = ''
-filters = ''
+filters = []
+
+#print(untranslated_filters)
+#print(filters_list_fr)
+
 
 
 for token in text_list:
 	if token in key_words:
 		stripped_text.append(token)
-#print(stripped_text)
+
 
 
 for el in stripped_text :
-	if el in aggregation_dict :
-		aggregation = aggregation_dict[el]
-	    
-	    	
+    if el in aggregation_dict :
+        aggregation = aggregation_dict[el]
+        stripped_text.remove(el)
+        break
+    
+print(stripped_text)
+
+find_metric = False
+index_counter = 0
 for el in stripped_text :
-    if el in metric_dict :
+    if el in metric_dict:
         for possible_metric in metric_dict[el] :
-            token_count = 0
-            for token in possible_metric :
-                if token in stripped_text :
-                    token_count +=1
-                    if token_count == len(possible_metric) :
-                        metric = possible_metric
-                        for token in possible_metric:
-                            stripped_text.remove(token)
-                        break 
-
+            if stripped_text[index_counter:index_counter + len(possible_metric)] == possible_metric and find_metric == False :
+                metric = possible_metric
+                for token in possible_metric:
+                    stripped_text.remove(token)
+                find_metric = True
+    index_counter += 1
+                
+#            token_count = 0
+#            for token in possible_metric :
+#                if token in stripped_text and find_metric == False:
+#                    token_count +=1
+#                    if token_count == len(possible_metric) :
+#                        metric = possible_metric
+#                        for token in possible_metric:
+#                            stripped_text.remove(token)
+#                        find_metric = True 
+#print(stripped_text)
+find_dimension = False
+index_counter = 0
 for el in stripped_text :
     if el in dimension_dict :
         for possible_dimension in dimension_dict[el] :
-            token_count = 0
-            for token in possible_dimension :
-                if token in stripped_text :
-                    token_count +=1
-                    if token_count == len(possible_dimension) :
-                        dimension = possible_dimension
-                        for token in possible_dimension:
-                            stripped_text.remove(token)
-                        break
-
+            if stripped_text[index_counter:index_counter + len(possible_dimension)] == possible_dimension and find_dimension == False:
+                dimension = possible_dimension
+                for token in possible_dimension:
+                    stripped_text.remove(token)
+                find_dimension = True
+    index_counter += 1
+    
+print(stripped_text)
+index_counter = 0
 for el in stripped_text :
-	if el in filters_dict :
-		for possible_filters in filters_dict[el] :
-			token_count = 0
-			for token in possible_filters :
-				if token in stripped_text :
-					token_count +=1
-				if token_count == len(possible_filters) :
-					filters = possible_filters
-					break
+    if el in filters_dict :
+        for possible_filters in filters_dict[el] :
+            if stripped_text[index_counter:index_counter + len(possible_filters)] == possible_filters :
+                filters.append(possible_filters)
+                for token in possible_filters:
+                    stripped_text.remove(token)
+    index_counter += 1
+    
+print(filters)
+metric_str = ''
+dimension_str = ''
+for word in metric :
+    metric_str += word + ' '
+for word in dimension :
+    dimension_str += word + ' '
 
-print([aggregation, metric, dimension, filters])
+counter = 0
+for filter in filters :
+    filters_str = ''
+    for word in filter :
+        filters_str += word + ' '
+    filters[counter] = filters_str
+    counter += 1
+
+				
+
+print([aggregation, metric_str, dimension_str, filters])
