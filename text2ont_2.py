@@ -1,5 +1,17 @@
 import requests, json, nltk
 
+import speech_recognition as sr
+
+r = sr.Recognizer()
+
+with sr.Microphone() as source:
+    print ('Say Something!')
+    audio = r.listen(source)
+try:
+    print(r.recognize_google(audio, language='fr-FR'))
+except:
+    pass
+
 #r_post = requests.post('https://vision.staging.mantic.fr/auth/login', json={"email": "inno@mantic.fr", "password": "inno"})
 #token = json.loads(r_post.text)['data']['token']
 #r_get = requests.get('https://vision.staging.mantic.fr/graph/get_metrics', headers={'Authorization': str(token)})
