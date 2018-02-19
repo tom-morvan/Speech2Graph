@@ -640,17 +640,17 @@ for el in filters_list :
 
 #print(untranslated_filters)
 
-entry = "Je veux la moyenne de paie nette en fonction du nom du lieu ou la nature du marché est supérieure à 50 et le nom du lieu commence par un A"
+entry = "Je veux la moyenne de paie nette en fonction du nom du lieu où la nature du marché est supérieure à 50 et le nom du lieu commence par un A"
 text_list = entry.split()
+#print(text_list)
 stripped_text = []
 
 key_words = []
 for el in metric_list_fr +dimension_list_fr + filters_list_fr + aggregation_list_fr:
     for token in nltk.word_tokenize(el) :
         key_words.append(token)
-        
     
-
+        
 
 #initialization of the dictionaries
 aggregation_dict = {'somme' : 'somme', 'moyenne' : 'moyenne', 'nombre' : 'nombre'}
@@ -706,6 +706,7 @@ filters = []
 for token in text_list:
 	if token in key_words:
 		stripped_text.append(token)
+#print(stripped_text)
 
 
 
@@ -715,54 +716,55 @@ for el in stripped_text :
         stripped_text.remove(el)
         break
     
-print(stripped_text)
+#print(stripped_text)
 
 find_metric = False
 index_counter = 0
 for el in stripped_text :
     if el in metric_dict:
         for possible_metric in metric_dict[el] :
-            if stripped_text[index_counter:index_counter + len(possible_metric)] == possible_metric and find_metric == False :
-                metric = possible_metric
-                for token in possible_metric:
-                    stripped_text.remove(token)
-                find_metric = True
+            try :
+                if stripped_text[index_counter:index_counter + len(possible_metric)] == possible_metric and find_metric == False :
+                    metric = possible_metric
+                    for token in possible_metric:
+                        stripped_text.remove(token)
+                    find_metric = True
+            except :
+                continue
     index_counter += 1
                 
-#            token_count = 0
-#            for token in possible_metric :
-#                if token in stripped_text and find_metric == False:
-#                    token_count +=1
-#                    if token_count == len(possible_metric) :
-#                        metric = possible_metric
-#                        for token in possible_metric:
-#                            stripped_text.remove(token)
-#                        find_metric = True 
+         
 #print(stripped_text)
 find_dimension = False
 index_counter = 0
 for el in stripped_text :
     if el in dimension_dict :
         for possible_dimension in dimension_dict[el] :
-            if stripped_text[index_counter:index_counter + len(possible_dimension)] == possible_dimension and find_dimension == False:
-                dimension = possible_dimension
-                for token in possible_dimension:
-                    stripped_text.remove(token)
-                find_dimension = True
+            try :
+                if stripped_text[index_counter:index_counter + len(possible_dimension)] == possible_dimension and find_dimension == False:
+                    dimension = possible_dimension
+                    for token in possible_dimension:
+                        stripped_text.remove(token)
+                    find_dimension = True
+            except :
+                continue
     index_counter += 1
     
-print(stripped_text)
+#print(stripped_text)
 index_counter = 0
 for el in stripped_text :
     if el in filters_dict :
         for possible_filters in filters_dict[el] :
-            if stripped_text[index_counter:index_counter + len(possible_filters)] == possible_filters :
-                filters.append(possible_filters)
-                for token in possible_filters:
-                    stripped_text.remove(token)
+            try :
+                if stripped_text[index_counter:index_counter + len(possible_filters)] == possible_filters :
+                    filters.append(possible_filters)
+                    for token in possible_filters:
+                        stripped_text.remove(token)
+            except :
+                continue
     index_counter += 1
     
-print(filters)
+#print(filters)
 metric_str = ''
 dimension_str = ''
 for word in metric :
