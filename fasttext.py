@@ -1,4 +1,3 @@
-import fasttext
 import numpy as np
 # from gensim.models import KeyedVectors
 
@@ -10,23 +9,35 @@ parsed_section_matrix = np.zeros((1,300))
 
 # word_matrix creation
 
-with open("../../Downloads/wiki.fr.vec") as f:
+with open("../../../Downloads/wiki.fr.vec") as f:
 	i = 2
 	f.readline()
 
 	for line in f:
-		if i <= 5 :
+		if i <= 50001 :
 			values = line.split()
 			word = values[0]
 
-			coefs = np.asarray(values[1:], dtype='float32')
+			coefs = np.zeros((1,300))
+			l = [i for i in range(0,len(values)-1)]
+			try :
+				coefs[0,l] = values[1:]
+			except :
+				index = 1
+				test_float = ['0.']
+				for el in values[1:]:
+					try :
+						test_float = float(el)
+					except:
+						values[index] = '0.'
+					index += 1
+				continue
 			word_list.append(word)
-			print(np.shape(coefs))
-			print(np.shape(word_matrix))
-			# word_matrix[i-2,:] = coefs
-
+			word_matrix[i-2,:] = coefs
 			i+=1
+			print(len(word_list))
 
+# print(word_list)
 
 # dot_product_matrix = word_matrix.dot(np.transpose(parsed_section_matrix))
 
