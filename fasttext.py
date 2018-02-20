@@ -9,7 +9,7 @@ parsed_section_matrix = np.zeros((1,300))
 
 # word_matrix creation
 
-with open("../../../Downloads/wiki.fr.vec") as f:
+with open("wiki.fr.vec") as f:
 	i = 2
 	f.readline()
 
@@ -35,9 +35,22 @@ with open("../../../Downloads/wiki.fr.vec") as f:
 			word_list.append(word)
 			word_matrix[i-2,:] = coefs
 			i+=1
-			print(len(word_list))
+
+word = 'voiture'
+word_index = word_list.index('voiture')
+
+
 
 # print(word_list)
+
+result_vector = [0 for i in range(50000)]
+index = 0
+for line in word_matrix:
+	somme = 0 
+	for el in line - word_matrix[word_index] :
+		somme += el**2
+	result_vector[index] = np.sqrt(somme)
+print(result_vector)
 
 # dot_product_matrix = word_matrix.dot(np.transpose(parsed_section_matrix))
 
