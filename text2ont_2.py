@@ -1,42 +1,33 @@
 import requests, json, nltk
+import numpy as np
 
-import speech_recognition as sr
 
-r = sr.Recognizer()
 
-with sr.Microphone() as source:
-    print ('Say Something!')
-    audio = r.listen(source)
-try:
-    print(r.recognize_google(audio, language='fr-FR'))
-except:
-    pass
+r_post = requests.post('https://vision.staging.mantic.fr/auth/login', json={"email": "inno@mantic.fr", "password": "inno"})
+token = json.loads(r_post.text)['data']['token']
+r_get = requests.get('https://vision.staging.mantic.fr/graph/get_metrics', headers={'Authorization': str(token)})
+print(r_get.status_code)
+r_text = r_get.text
+r_json = json.loads(r_text)
+metric_list = []
+for el in r_json :
+   metric_list.append([el['aggregations'],el['field']])
+#print(metric_list_json)
 
-#r_post = requests.post('https://vision.staging.mantic.fr/auth/login', json={"email": "inno@mantic.fr", "password": "inno"})
-#token = json.loads(r_post.text)['data']['token']
-#r_get = requests.get('https://vision.staging.mantic.fr/graph/get_metrics', headers={'Authorization': str(token)})
-#print(r_get.status_code)
-#r_text = r_get.text
-#r_json = json.loads(r_text)
-#metric_list = []
-#for el in r_json :
-#    metric_list.append([el['aggregations'],el['field']])
-##print(metric_list_json)
-#
-#
-#r_get = requests.get('https://vision.staging.mantic.fr/graph/get_filters_and_dimensions?metric=structure_level', headers={'Authorization': str(token)})
-#print(r_get.status_code)
-#r_text = r_get.text
-#r_json = json.loads(r_text)
-#dimension_list = []
-#for el in r_json['dimensions'] :
-#    dimension_list.append(el['field'])
-#filters_list = []
-#for el in r_json['filters'] :
-#    if 'values' in el:
-#        filters_list.append([el['field'],el['values']])
-#    else :
-#        filters_list.append([el['field']])
+
+r_get = requests.get('https://vision.staging.mantic.fr/graph/get_filters_and_dimensions?metric=structure_level', headers={'Authorization': str(token)})
+print(r_get.status_code)
+r_text = r_get.text
+r_json = json.loads(r_text)
+dimension_list = []
+for el in r_json['dimensions'] :
+   dimension_list.append(el['field'])
+filters_list = []
+for el in r_json['filters'] :
+   if 'values' in el:
+       filters_list.append([el['field'],el['values']])
+   else :
+       filters_list.append([el['field']])
 
 
 
@@ -631,6 +622,7 @@ for el in metric_list :
     except : 
         untranslated_metrics.append(el[1])
 
+np.save("metric_list_fr", metric_list_fr)
 
 untranslated_dimensions =[]
 for el in dimension_list :
@@ -638,6 +630,8 @@ for el in dimension_list :
         dimension_list_fr.append(translation[el])
     except : 
         untranslated_dimensions.append(el)
+np.save("dimension_list_fr", dimension_list_fr)
+
 
 untranslated_filters =[]
 for el in filters_list :
@@ -645,6 +639,8 @@ for el in filters_list :
         filters_list_fr.append(translation[el[0]])
     except : 
         untranslated_filters.append(el)
+
+np.save("filter_list_fr",filters_list_fr)
 #print(len(metric_list_fr + dimension_list_fr +filters_list_fr))
 #print(len(translation))
 #print(dimension_list_fr)
