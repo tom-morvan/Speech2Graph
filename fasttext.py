@@ -40,17 +40,29 @@ word = 'voiture'
 word_index = word_list.index('voiture')
 
 
-
-# print(word_list)
-
 result_vector = [0 for i in range(50000)]
 index = 0
+
+
 for line in word_matrix:
 	somme = 0 
 	for el in line - word_matrix[word_index] :
 		somme += el**2
 	result_vector[index] = np.sqrt(somme)
-print(result_vector)
+	index += 1
+minimum_indexes = np.zeros((10,1))
+
+for index in range(10):
+	minimum_indexes[index] = result_vector.index(min(result_vector))
+	result_vector[result_vector.index(min(result_vector))] = 10000
+
+print(minimum_indexes)
+
+closest_words = []
+for index in minimum_indexes:
+	closest_words.append(word_list[int(index)])
+
+print(closest_words)
 
 # dot_product_matrix = word_matrix.dot(np.transpose(parsed_section_matrix))
 
