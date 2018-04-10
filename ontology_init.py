@@ -641,3 +641,5 @@ for el in filters_list :
         untranslated_filters.append(el)
 
 np.save("filter_list_fr",filters_list_fr)
+
+np.save("aggregation_list_fr", aggregation_list_fr)
