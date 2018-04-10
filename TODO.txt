@@ -1,0 +1,24 @@
+#  TODO
+
+
+# 2018-04-10 #
+RDV avec Joseph.
+
+script de teests qui s'auto run aveec des mesrures precises, une metrique qui calcule lecart entre elentree te la sortie
+
+
+faire en plusieurs langues type allemand (declinaisons pourront aider avec la deteremination des cas)
+
+les valeurs des filtres !
+
+commencer par faire la la map des tests ete les resoudre un par un. ca serait bien que ca se generalise
+
+contacter les mecs de linria alpage - essayer daller les voirs
+
+Lundi le 7 mai RDV avec Jospeh.
+
+regardere si toutes les librairies auon utilise sont soit open source soit en javascript.
+
+machine learning:
+
+geenerer un training set algorithmique, puis faire un test set a la main
