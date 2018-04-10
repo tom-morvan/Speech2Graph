@@ -5,6 +5,9 @@ Created on Mon Apr  9 17:05:29 2018
 @author: Ayoub
 """
 import flask
+import closest_word2vec
+import parser
+
 app = flask.Flask(__name__)
 
 
@@ -21,9 +24,11 @@ def HTMLForm():
 def formPage():
     html = "<html> <body>" + HTMLForm()
     if flask.request.method == "POST":
-        html += "<p> This is your text: " + flask.request.form["your_text"] 
+      text_input = flask.request.form["your_text"] 
+      html += "<p> This is your text: " + str(parser(text_input))
     html += "</body> </html>"
     return html
 
 if __name__ == "__main__":
     app.run()
+

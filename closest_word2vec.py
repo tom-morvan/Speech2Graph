@@ -9,7 +9,8 @@ metric_matrix = np.load('word_matrices/metric_matrix.npy')
 metric_list_fr = np.load('word_lists/metric_list_fr.npy')
 filter_matrix = np.load('word_matrices/filter_matrix.npy')
 filter_list_fr = np.load('word_lists/filter_list_fr.npy')
-
+aggregation_matrix = np.load('word_matrices/aggregation_matrix.npy')
+aggregation_list_fr = np.load('word_lists/aggregation_list_fr.npy')
 
 def getWordVector(word):
     except_1 = False
@@ -74,8 +75,7 @@ def closestFilters(pre_ontology_filter, amount):
     sentence_vector = [0 for i in range(300)]
 
     for word in words:
-        sentence_vector = sentence_vector + \
-            getWordVector(word)  # You forgot to sum them
+        sentence_vector = sentence_vector + getWordVector(word)  # You forgot to sum them
 
     # contains the vector distance between the sentence vector and each filter
     # vector
@@ -135,11 +135,10 @@ def closestMetrics(pre_ontology_metric, amount):
     return closest_metrics
 
 
-print(closestMetrics("salaire net", 3))
 
 
-def closestAgregation(pre_ontology_agregation, amount):
-    words = pre_ontology_agregation.split()
+def closestAggregation(pre_ontology_aggregation, amount):
+    words = pre_ontology_aggregation.split()
     # vector representation of the input sentence (initialisation)
     sentence_vector = [0 for i in range(300)]
 
@@ -148,13 +147,13 @@ def closestAgregation(pre_ontology_agregation, amount):
 
     # contains the vector distance between the sentence vector and each
     # agregation vector
-    results_vector = getCosineDistances(sentence_vector, agregation_matrix)
+    results_vector = getCosineDistances(sentence_vector, aggregation_matrix)
 
-    closest_agregation = []
+    closest_aggregation = []
     for _ in range(amount):
         closest_metrics.append(
             getClosest(
                 results_vector,
-                metric_list_fr))  # get the "amount" closest
+                aggregation_list_fr))  # get the "amount" closest
 
-    return closest_agregation
+    return closest_aggregation

@@ -9,7 +9,8 @@ Created on Tue Dec  5 17:10:01 2017
 import polyglot
 from polyglot.text import Text, Word
 from polyglot.downloader import downloader
-print(downloader.supported_languages_table("pos2"))
+
+#print(downloader.supported_languages_table("pos2"))
 
 
 
@@ -34,10 +35,10 @@ print(downloader.supported_languages_table("pos2"))
 
 
 
-blob = """Je veux la moyenne d'âge des agents en fonction de leur salaire."""
-blob2 = """ Quel est la moyenne d'âge des personnes travaillant en mairie et qui gagnent plus 3000 par mois?"""
-text = Text(blob, hint_language_code='fr')
-print(text.pos_tags)
+#blob = """Je veux la moyenne d'âge des agents en fonction de leur salaire."""
+#blob2 = """ Quel est la moyenne d'âge des personnes travaillant en mairie et qui gagnent plus 3000 par mois?"""
+#text = Text(blob, hint_language_code='fr')
+#print(text.pos_tags)
 
 
 def parser(text):
