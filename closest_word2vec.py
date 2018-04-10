@@ -70,7 +70,7 @@ def getClosest(results_vector, thing_list_fr):
 
 
 def closestFilters(pre_ontology_filter, amount):
-    words = pre_ontology_filter.split()
+    words = pre_ontology_filter
     # vector representation of the input sentence (initialisation)
     sentence_vector = [0 for i in range(300)]
 
@@ -92,7 +92,7 @@ def closestFilters(pre_ontology_filter, amount):
 
 
 def closestDimensions(pre_ontology_dimension, amount):
-    words = pre_ontology_dimension.split()
+    words = pre_ontology_dimension
     # vector representation of the input sentence (initialisation)
     sentence_vector = [0 for i in range(300)]
 
@@ -114,7 +114,7 @@ def closestDimensions(pre_ontology_dimension, amount):
 
 
 def closestMetrics(pre_ontology_metric, amount):
-    words = pre_ontology_metric.split()
+    words = pre_ontology_metric
     # vector representation of the input sentence (initialisation)
     sentence_vector = [0 for i in range(300)]
 
@@ -138,7 +138,7 @@ def closestMetrics(pre_ontology_metric, amount):
 
 
 def closestAggregation(pre_ontology_aggregation, amount):
-    words = pre_ontology_aggregation.split()
+    words = pre_ontology_aggregation
     # vector representation of the input sentence (initialisation)
     sentence_vector = [0 for i in range(300)]
 
@@ -151,7 +151,7 @@ def closestAggregation(pre_ontology_aggregation, amount):
 
     closest_aggregation = []
     for _ in range(amount):
-        closest_metrics.append(
+        closest_aggregation.append(
             getClosest(
                 results_vector,
                 aggregation_list_fr))  # get the "amount" closest

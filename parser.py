@@ -35,13 +35,13 @@ from polyglot.downloader import downloader
 
 
 
-#blob = """Je veux la moyenne d'âge des agents en fonction de leur salaire."""
+blob = """Je veux la moyenne d'âge des agents en fonction de leur salaire."""
 #blob2 = """ Quel est la moyenne d'âge des personnes travaillant en mairie et qui gagnent plus 3000 par mois?"""
 #text = Text(blob, hint_language_code='fr')
 #print(text.pos_tags)
 
 
-def parser(text):
+def text_parser(text):
     """Parses the text into sub groups of words
     Returns a list of the subgroups"""
     agregation = []
@@ -117,7 +117,6 @@ def parser(text):
         i += 1
         
     return([agregation,metric,dimension,filters])    
-    
     
     
 
