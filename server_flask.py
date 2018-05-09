@@ -9,6 +9,7 @@ import closest_word2vec
 import parser
 from closest_word2vec import *
 from parser import text_parser
+from filter_values import filter_value
 
 app = flask.Flask(__name__)
 
@@ -22,7 +23,7 @@ def HTMLForm():
 </form> """
     return form
 
-def pre_ontology2ontology(pre_ontology):
+def pre_ontology2ontology(pre_ontology, text):
 
     pre_aggregation = pre_ontology[0]
     pre_metric = pre_ontology[1]
@@ -37,8 +38,10 @@ def pre_ontology2ontology(pre_ontology):
     filters = []
     for pre_filter in pre_filters :
       filters.append(closestFilters(pre_filter,1))
+    filter_value = []
+    filter_value = filter_value(text)
 
-    return([aggregation,metric,dimensions,filters])
+    return([aggregation,metric,dimensions,filters, filter_value])
 
 
 
@@ -49,7 +52,7 @@ def formPage():
     if flask.request.method == "POST":
       text_input = flask.request.form["your_text"]
       html += "<p> This is your input: " + text_input + "</p>"
-      text_output = str(pre_ontology2ontology(text_parser(text_input)))
+      text_output = str(pre_ontology2ontology(text_parser(text_input),text_input))
       html += "<p> This is your text: " + text_output + "</p>"
     html += "</body> </html>"
     return html
