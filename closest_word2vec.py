@@ -11,6 +11,12 @@ filter_matrix = np.load('word_matrices/filter_matrix.npy')
 filter_list_fr = np.load('word_lists/filter_list_fr.npy')
 aggregation_matrix = np.load('word_matrices/aggregation_matrix.npy')
 aggregation_list_fr = np.load('word_lists/aggregation_list_fr.npy')
+no_stop_dimension_matrix = np.load('word_matrices/no_stop_dimension_matrix.npy')
+no_stop_aggregation_matrix = np.load('word_matrices/no_stop_aggregation_matrix.npy')
+no_stop_metric_matrix = np.load('word_matrices/no_stop_metric_matrix.npy')
+no_stop_filter_matrix = np.load('word_matrices/no_stop_filter_matrix.npy')
+
+
 
 def getWordVector(word):
     except_1 = False
@@ -65,7 +71,7 @@ def getMinkowskiDistances(sentence_vector, vector_matrix, p):
 
 def getClosest(results_vector, thing_list_fr):
     min_index = results_vector.index(min(results_vector))
-    results_vector[min_index] = 10000  # what's this for Owain?
+    results_vector[min_index] = 10000  
     return thing_list_fr[min_index]
 
 
@@ -75,7 +81,7 @@ def closestFilters(pre_ontology_filter, amount):
     sentence_vector = [0 for i in range(300)]
 
     for word in words:
-        sentence_vector = sentence_vector + getWordVector(word)  # You forgot to sum them
+        sentence_vector = sentence_vector + getWordVector(word)  
 
     # contains the vector distance between the sentence vector and each filter
     # vector
@@ -135,9 +141,7 @@ def closestMetrics(pre_ontology_metric, amount):
     return closest_metrics
 
 
-
-
-def closestAggregation(pre_ontology_aggregation, amount):
+def closestAggregations(pre_ontology_aggregation, amount):
     words = pre_ontology_aggregation
     # vector representation of the input sentence (initialisation)
     sentence_vector = [0 for i in range(300)]
@@ -146,8 +150,95 @@ def closestAggregation(pre_ontology_aggregation, amount):
         sentence_vector = sentence_vector + getWordVector(word)
 
     # contains the vector distance between the sentence vector and each
-    # agregation vector
+    # aggregation vector
     results_vector = getCosineDistances(sentence_vector, aggregation_matrix)
+
+    closest_aggregation = []
+    for _ in range(amount):
+        closest_aggregation.append(
+            getClosest(
+                results_vector,
+                aggregation_list_fr))  # get the "amount" closest
+
+    return closest_aggregation
+
+def closestNoStopFilters(pre_ontology_filter, amount):
+    words = pre_ontology_filter
+    # vector representation of the input sentence (initialisation)
+    sentence_vector = [0 for i in range(300)]
+
+    for word in words:
+        sentence_vector = sentence_vector + getWordVector(word)  # You forgot to sum them
+
+    # contains the vector distance between the sentence vector and each filter
+    # vector
+    results_vector = getCosineDistances(sentence_vector, no_stop_filter_matrix)
+
+    closest_filters = []
+    for _ in range(amount):
+        closest_filters.append(
+            getClosest(
+                results_vector,
+                filter_list_fr))  # get the "amount" closest
+
+    return closest_filters
+
+
+def closestNoStopDimensions(pre_ontology_dimension, amount):
+    words = pre_ontology_dimension
+    # vector representation of the input sentence (initialisation)
+    sentence_vector = [0 for i in range(300)]
+
+    for word in words:
+        sentence_vector = sentence_vector + getWordVector(word)
+
+    # contains the vector distance between the sentence vector and each
+    # dimension vector
+    results_vector = getCosineDistances(sentence_vector, no_stop_dimension_matrix)
+
+    closest_dimensions = []
+    for _ in range(amount):
+        closest_dimensions.append(
+            getClosest(
+                results_vector,
+                dimension_list_fr))  # get the "amount" closest
+
+    return closest_dimensions
+
+
+def closestNoStopMetrics(pre_ontology_metric, amount):
+    words = pre_ontology_metric
+    # vector representation of the input sentence (initialisation)
+    sentence_vector = [0 for i in range(300)]
+
+    for word in words:
+        sentence_vector = sentence_vector + getWordVector(word)
+
+    # contains the vector distance between the sentence vector and each metris
+    # vector
+    results_vector = getCosineDistances(sentence_vector, no_stop_metric_matrix)
+
+    closest_metrics = []
+    for _ in range(amount):
+        closest_metrics.append(
+            getClosest(
+                results_vector,
+                metric_list_fr))  # get the "amount" closest
+
+    return closest_metrics
+
+
+def closestNoStopAggregations(pre_ontology_aggregation, amount):
+    words = pre_ontology_aggregation
+    # vector representation of the input sentence (initialisation)
+    sentence_vector = [0 for i in range(300)]
+
+    for word in words:
+        sentence_vector = sentence_vector + getWordVector(word)
+
+    # contains the vector distance between the sentence vector and each
+    # aggregation vector
+    results_vector = getCosineDistances(sentence_vector, no_stop_aggregation_matrix)
 
     closest_aggregation = []
     for _ in range(amount):
